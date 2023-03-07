@@ -1,0 +1,7 @@
+# input assignment 1, exercise 1.a)
+## lambda = positive mean, k = integer
+1	0
+5	10
+3	21
+2.6	40
+101	200

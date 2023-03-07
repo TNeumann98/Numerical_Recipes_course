@@ -1,0 +1,24 @@
+\section{Exercise 1: Poisson distribution}
+
+In this exercise the poisson probability distribution for integer k should be calculated with the given values.
+
+The poisson probability distribution is given as:
+
+\begin{equation}
+	P_{\lambda}(k) = \frac{\lambda^k exp(-\lamda)}{k!}
+\end{equation}
+
+While calculations a straight-forward derivation with 32-bit values would run into overflow-problems for the k-factorial, the given equation was converted into log-space which gives the following equation:
+ 
+The result is calculated the following way:
+\begin{equation}
+	log(P_{\lambda}(k)) = \lambda *k - \lambda - \sum(k)
+\end{equation}
+
+The $P_{\lambda}(k)$ for the given values are calculated for 32-bit and 64-bit values with into log-space converted equation and as comparison the same is derived using \textit{scipy} via the given equation. 
+
+\lstinputlisting{1_PoissonDistribution.py}
+
+The result of $P_{\lambda}(k)$ are given in:
+
+\lstinputlisting{1_PoissonDistribution.txt}

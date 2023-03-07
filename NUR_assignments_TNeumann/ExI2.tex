@@ -1,0 +1,28 @@
+\section{Exercise 2: Vandemonde matrix}
+
+In this exercise the poisson probability distribution for integer k should be calculated with the given values.
+
+The poisson probability distribution is given as:
+
+\begin{equation}
+	y_i = \sum{j=0}{N-1} g_j x_i^j
+\end{equation}
+
+While calculations a straight-forward derivation with 32-bit values would run into overflow-problems for the k-factorial, the given equation was converted into log-space which gives the following equation:
+ 
+The result is calculated the following way:
+\begin{equation}
+	log(P_{\lambda}(k)) = \lambda *k - \lambda - \sum(k)
+\end{equation}
+
+The entries of the Vandermonde-matrix ($V_{ij} = x_i^j$) are given and can read in by the following script:
+ 
+\lstinputlisting{vandermonde.py}
+
+The distribution of the data points is vizualized in the plot above.
+
+\subsection{2.b) Approximation with Nevilles algorithm}
+
+The result of $P_{\lambda}(k)$ are given in:
+
+\lstinputlisting{2_Vandemonde.py}
