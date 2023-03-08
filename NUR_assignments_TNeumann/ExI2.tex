@@ -1,23 +1,21 @@
 \section{Exercise 2: Vandemonde matrix}
 
-In this exercise the poisson probability distribution for integer k should be calculated with the given values.
-
-The poisson probability distribution is given as:
+The Vandermonde-matrix can be obtained to find an unique solution for a given  Langrangian polynomial .
+The coefficients of the Langrangian polynomial are calculated as:
 
 \begin{equation}
 	y_i = \sum{j=0}{N-1} g_j x_i^j
 \end{equation}
 
-While calculations a straight-forward derivation with 32-bit values would run into overflow-problems for the k-factorial, the given equation was converted into log-space which gives the following equation:
- 
-The result is calculated the following way:
-\begin{equation}
-	log(P_{\lambda}(k)) = \lambda *k - \lambda - \sum(k)
-\end{equation}
+\subsection{2.a) Approximation with LU-decomposition}
 
 The entries of the Vandermonde-matrix ($V_{ij} = x_i^j$) are given and can read in by the following script:
  
 \lstinputlisting{vandermonde.py}
+
+With the code the following result for \textbf{c} is obtained.
+
+\lstinputlisting{2a_c_vdm.txt}
 
 The distribution of the data points is vizualized in the plot above.
 
@@ -25,4 +23,4 @@ The distribution of the data points is vizualized in the plot above.
 
 The result of $P_{\lambda}(k)$ are given in:
 
-\lstinputlisting{2_Vandemonde.py}
+\lstinputlisting{2b_neville_result.txt}

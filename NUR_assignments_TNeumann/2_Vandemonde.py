@@ -22,12 +22,21 @@ from nevilles_algo import *
 from lu_decomposition import *
 
 # plotting given data
-plt.plot(x,y, '+', label = 'Measured data')
+plt.plot(x,y, '+', label = 'Given data points')
 
 ## Exercise 2.a) solve matrix via LU-decomposition
-lmat, umat, a_matrix = LU_decomp(x) #use code from Tut3
-xsol, ysol = solve_LU(y,lmat,umat)
-print(xsol,ysol)
+# create vandemonde-matrix as polynomial
+vdM = []
+for i in range(len(x)): #create rows
+    row_x = []
+    for j in range(len(x)): #create columns
+        row_x.append(x[j]**j) #define polynomial for vandemonde-matrix
+
+    vdM.append(row_x) #append polynomial for row elements, of same x value
+        
+lmat, umat, a_matrix = LU_decomp(vdM) #use code from Tut3
+xsol, ysol = solve_LU(y,lmat,umat,len(y))
+plt.plot(x, xsol, ':', alpha = 0.6, label = 'Interpolation with LU-decomposition')
 
 ## Exercise 2.b) interpolation with nevilles algorithm
 y_nev = []
@@ -37,16 +46,23 @@ for a in xx:
     y_nev.append(y2)
     err_nev.append(derr)
     
-plt.plot(xx,y_nev, '-', alpha = 0.6, label = 'Interpolation with Nevilles algo')
+plt.plot(xx, y_nev, '-', alpha = 0.6, label = 'Interpolation with Nevilles algo')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.ylim(-400,400)
-plt.title('Interpolation of Lagrangian polynom via Nevilles algorithm')
+plt.title('Interpolation of Lagrangian polynom')
 plt.legend()
-plt.savefig('./plots/2b_NevillesAlgo.pdf')
+plt.savefig('./plots/2_Interpolation_Algos.pdf')
 plt.show()
 
-# vizualize the error produced through nevilles algo
+### calculate the y-error produced (variance from given values) by
+# 2.a) LU-decomposition
+err_lu = []
+for m in range(len(xsol)):
+    err_lu.append(abs(y[i]-xsol[i]))
+print(err_lu)
+plt.plot(x, err_lu, marker = '*', color = 'orange', label = 'Error of LU-decomposition')
+# 2.b) through nevilles algo
 # check diffence in y-value between given values and of nevilles algo produced
 for i in range(len(x)):
     # write workaround (for .index()-to find the closest index) through smallest difference
@@ -57,7 +73,8 @@ plt.plot(x[-1],dy_nev, marker = '+', color = 'blue', label = 'Error of Nevilles 
     
 plt.xlabel('x')
 plt.ylabel(r'|$\Delta$ y|')
+plt.yscale('log')
 plt.title('Error comparison of Lagrangian polynom')
 plt.legend()
-plt.savefig('./plots/2b_NevillesAlgo_error.pdf')
+plt.savefig('./plots/2_interpolation_error.pdf')
 plt.show()

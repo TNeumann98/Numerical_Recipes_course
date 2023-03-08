@@ -42,7 +42,7 @@ def LU_decomp(matrix):
 # In[34]:
 
 ### slide 16, solving system
-def solve_LU(b,lmat,umat):
+def solve_LU(b,lmat,umat,n):
 	x_sol = b.copy() #step 1: define x
 	y_sol = b.copy() #step 1: define y (=Ux)
 
