@@ -43,13 +43,12 @@ plt.show()
 # vizualize the error produced through nevilles algo
 # check diffence in y-value between given values and of nevilles algo produced
 for i in range(len(x)):
-    # write workaround (for .index()-to find the closest index) through scaling 20 --> 1000
-    ind = int(i*len(y_nev)*(len(y))**(-1))
+    # write workaround (for .index()-to find the closest index) through smallest difference
+    ind = np.abs(xx-x[i]).argmin()
     dy_nev = abs(y[i]-y_nev[ind])
-    plt.plot(xx[ind],y_nev[ind], marker = '*', color = 'red') 
-    plt.plot(x[i],y[i], marker = '*', color = 'red') 
     plt.plot(x[i],dy_nev, marker = '+', color = 'blue') #, label = 'Error of Nevilles algo')
 plt.plot(x[-1],dy_nev, marker = '+', color = 'blue', label = 'Error of Nevilles algo') #to obtain label
+    
     
 plt.xlabel('x')
 plt.ylabel(r'|$\Delta$ y|')

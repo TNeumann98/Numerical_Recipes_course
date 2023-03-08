@@ -19,18 +19,24 @@ xx=np.linspace(x[0],x[-1],1001) #x values to interpolate at
 # In[7]:
 # approximate values via Nevilles algorithm (Ex 2,2) on the basis of bi-section
 from nevilles_algo import *
+from lu_decomposition import *
 
 # plotting given data
 plt.plot(x,y, '+', label = 'Measured data')
 
+## Exercise 2.a) solve matrix via LU-decomposition
+lmat, umat, a_matrix = LU_decomp(x) #use code from Tut3
+xsol, ysol = solve_LU(y,lmat,umat)
+print(xsol,ysol)
+
+## Exercise 2.b) interpolation with nevilles algorithm
 y_nev = []
 err_nev = []
 for a in xx:
-    y2, derr = nevilles_algo(a,x,y)
+    y2, derr = nevilles_algo(a,x,y) #cal create function of Tut2
     y_nev.append(y2)
     err_nev.append(derr)
     
-
 plt.plot(xx,y_nev, '-', alpha = 0.6, label = 'Interpolation with Nevilles algo')
 plt.xlabel('x')
 plt.ylabel('y')
@@ -43,11 +49,9 @@ plt.show()
 # vizualize the error produced through nevilles algo
 # check diffence in y-value between given values and of nevilles algo produced
 for i in range(len(x)):
-    # write workaround (for .index()-to find the closest index) through scaling 20 --> 1000
-    ind = int(i*len(y_nev)*(len(y))**(-1))
+    # write workaround (for .index()-to find the closest index) through smallest difference
+    ind = np.abs(xx-x[i]).argmin()
     dy_nev = abs(y[i]-y_nev[ind])
-    plt.plot(xx[ind],y_nev[ind], marker = '*', color = 'red') 
-    plt.plot(x[i],y[i], marker = '*', color = 'red') 
     plt.plot(x[i],dy_nev, marker = '+', color = 'blue') #, label = 'Error of Nevilles algo')
 plt.plot(x[-1],dy_nev, marker = '+', color = 'blue', label = 'Error of Nevilles algo') #to obtain label
     
