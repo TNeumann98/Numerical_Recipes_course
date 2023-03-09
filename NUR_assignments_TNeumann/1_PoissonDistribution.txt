@@ -1,1 +1,6 @@
-3.678790032863616943e-01
+# The given lambda, k & results for the Poisson-distribution P(k) evaluated with 32-bit data types 
+1	0	0.135335
+5	10	0.007405
+3	21	0.0
+2.6	40	0.0
+101	200	0.0

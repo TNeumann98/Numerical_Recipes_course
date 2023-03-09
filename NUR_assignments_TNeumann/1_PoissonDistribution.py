@@ -36,7 +36,7 @@ def poiss_32(lam, k):
     p = np.exp(np.float32(log_p)) #revert log-scale
     print('k! = ', f_frac)
     print('log(P(k)) = ', log_p)
-    return log_p
+    return p
 
 
 # In[41]:
@@ -79,8 +79,9 @@ def poiss(lam, k):
 
 
 # In[43]:
-
-
+# Save a text file
+with open("1_PoissonDistribution.txt", "w") as file:
+    file.write('# The given lambda, k & results for the Poisson-distribution P(k) evaluated with 32-bit data types \n')
 # read-in given values
 with open('input_1a.txt') as f:
     lines = f.readlines()[2:]
@@ -94,9 +95,12 @@ with open('input_1a.txt') as f:
             while res*(dig*1e1)**(-1) >= 1.:
                 dig += 1
                 
+            k_int = k_int[:-1] #str has additional '\n'
             print('The given values are lam & k: '+ mean_lam, ' & '+ k_int)
-            # Save a text file
-            np.save('1_PoissonDistribution.txt', [round(poiss_32(mean_lam,k_int),6)])
+            
+            # add values to output file
+            with open("1_PoissonDistribution.txt", "a+") as file:
+                file.write(str(mean_lam+'\t'+k_int+'\t'+str(round(poiss_32(mean_lam,k_int),dig+5))+'\n'))
             print('For 32 bits this results in a poisson distribution of P(k) = ', round(poiss_32(mean_lam,k_int),dig+5)) #print 6 relevant digits
             print('For 64 bits this results in a poisson distribution of P(k) = ', round(poiss_64(mean_lam,k_int),dig+5)) #print 6 relevant digits
             print('For numpy-functions this results in a poisson distribution of P(k) = ', round(poiss(mean_lam,k_int),dig+5)) #print 6 relevant digits
