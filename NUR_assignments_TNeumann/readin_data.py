@@ -27,3 +27,4 @@ for i in range(len(x)): #create rows
         row_x.append(x[j]**j) #define polynomial for vandemonde-matrix
 
     vdM.append(row_x) #append polynomial for row elements, of same x value
+lmat, umat, a_matrix = LU_decomp(vdM) #use code from Tut3

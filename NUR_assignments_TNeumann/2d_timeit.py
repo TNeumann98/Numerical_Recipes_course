@@ -25,4 +25,4 @@ print(timeit.timeit('y_nev=[];err_nev=[];[nevilles_algo(a,x,y) for a in xx]', se
 
 ## Exercise 2.c) solve matrix via 10xLU-decomposition
 print('The time required to interpolate via 10-times LU-decomposition solving [sec]:')
-print(timeit.timeit('xsol10 = y;[xsol10 = np.subtract(y, solve_LU(xsol10,lmat,umat,len(xsol10)[0])) for l in range(10)]', setup = 'from readin_data import xx,x,y,vdM,LU_decomp,solve_LU',number = repeat))
+print(timeit.timeit('lmat, umat, a_matrix = LU_decomp(vdM);xsol10 = y;[(y- solve_LU(xsol10,lmat,umat,len(xsol10))[0]) for l in range(10)]', setup = 'from readin_data import xx,x,y,vdM,LU_decomp,solve_LU',number = repeat))
