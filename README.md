@@ -10,7 +10,9 @@ Run.sh should run all the files automatically and give the required output.
 
 
 Missing/ ToDO:
-Ex 1): -check last 3 values
+Ex 1): - last values evaluated with scipy has OverflowError (output = NaN)
 
-Ex 2): - error in Nevilles algo too high
+Ex 2): - LU-decomposition does not work as expected:
+Crout's algo (not-extended used)
+--> no error for LU-decomposition
 - delta_y plotting (wrong index selected) --> solved with .argmin()

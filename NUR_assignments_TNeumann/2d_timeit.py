@@ -11,7 +11,7 @@ import numpy as np
 import sys
 
 ## Exercise 2.d) time routines with appropiate 'parameters`
-repeat = int(5e3) #default 1e7: choose so that code runs below <1min
+repeat = int(1e2) #default 1e7: choose so that code runs below <1min
 
 ## Exercise 2.a) solve matrix via LU-decomposition
 # create vandemonde-matrix as polynomial
@@ -24,3 +24,5 @@ print('The time required to interpolate the matrix with Nevilles algorithm is [s
 print(timeit.timeit('y_nev=[];err_nev=[];[nevilles_algo(a,x,y) for a in xx]', setup = 'from readin_data import nevilles_algo,xx,x,y',number = repeat))
 
 ## Exercise 2.c) solve matrix via 10xLU-decomposition
+print('The time required to interpolate via 10-times LU-decomposition solving [sec]:')
+print(timeit.timeit('xsol10 = y;[xsol10 = np.subtract(y, solve_LU(xsol10,lmat,umat,len(xsol10)[0])) for l in range(10)]', setup = 'from readin_data import xx,x,y,vdM,LU_decomp,solve_LU',number = repeat))

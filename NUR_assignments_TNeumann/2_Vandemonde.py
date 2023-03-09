@@ -47,8 +47,18 @@ for a in xx:
     err_nev.append(derr)
     
 plt.plot(xx, y_nev, '-', alpha = 0.6, label = 'Interpolation with Nevilles algo')
+
+## Exercise 2.c) solve matrix via LU-decomposition for 10 iterations
+xsol10 = y
+for l in range(10):
+	#repeat solver 10-times while implementing the difference between the obtained result and the given y-values
+	x10, y10 = solve_LU(xsol10,lmat,umat,len(xsol10))
+	xsol10 = np.subtract(y,x10)
+	
+plt.plot(x, xsol10, ':', alpha = 0.6, label = 'Interpolation with 10xLU')
+
 plt.xlabel('x')
-plt.ylabel('y')
+plt.ylabel(r'$y_i = \sum_{j=0}{N-1} g_j x_i^j$')
 plt.ylim(-400,400)
 plt.title('Interpolation of Lagrangian polynom')
 plt.legend()
@@ -58,18 +68,22 @@ plt.show()
 ### calculate the y-error produced (variance from given values) by
 # 2.a) LU-decomposition
 err_lu = []
+err_lu10 = []
 for m in range(len(xsol)):
     err_lu.append(abs(y[i]-xsol[i]))
-print(err_lu)
+    err_lu10.append(abs(y[i]-xsol10[i]))
+
 plt.plot(x, err_lu, marker = '*', color = 'orange', label = 'Error of LU-decomposition')
+plt.plot(x, err_lu10, marker = 'x', color = 'red', label = 'Error of 10xLU-decomposition')
+
 # 2.b) through nevilles algo
 # check diffence in y-value between given values and of nevilles algo produced
 for i in range(len(x)):
     # write workaround (for .index()-to find the closest index) through smallest difference
     ind = np.abs(xx-x[i]).argmin()
     dy_nev = abs(y[i]-y_nev[ind])
-    plt.plot(x[i],dy_nev, marker = '+', color = 'blue') #, label = 'Error of Nevilles algo')
-plt.plot(x[-1],dy_nev, marker = '+', color = 'blue', label = 'Error of Nevilles algo') #to obtain label
+    plt.plot(x[i],dy_nev, marker = '+', color = 'green') #, label = 'Error of Nevilles algo')
+plt.plot(x[-1],dy_nev, marker = '+', color = 'green', label = 'Error of Nevilles algo') #to obtain label
     
 plt.xlabel('x')
 plt.ylabel(r'|$\Delta$ y|')
